@@ -60,11 +60,18 @@ AUTH_USER_MODEL = 'wardrobe.User'
 CORS_ORIGIN_ALLOW_ALL = True
 
 DJOSER = {
+    'LOGIN_FIELD': 'email',
+    'USER_CREATE_PASSWORD_RETYPE': True,
+    'SEND_CONFIRMATION_EMAIL': True,
+    'PASSWORD_RESET_CONFIRM_URL': 'password/reset/confirm/{uid}/{token}',
+    'ACTIVATION_URL': 'activate/{uid}/{token}',
     'SERIALIZERS': {
         'user_create': 'wardrobe.serializers.UserCreateSerializer',
-        'current_user': 'wardrobe.serializers.UserSerializer',
-    }
+        'user': 'wardrobe.serializers.UserSerializer',
+    },
 }
+
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",
