@@ -16,9 +16,15 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from django.http import HttpResponse
+
+def home(request):
+    return HttpResponse("<h1>Welcome to the Home Page</h1>")
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('auth/', include('djoser.urls')),
-    path('auth/', include('djoser.urls.jwt')),
+    path("", home),
+    path("admin/", admin.site.urls),
+    path("api/", include("wardrobe.urls")),
+    path('login/', include('django.contrib.auth.urls')),
+    path('signup/', include('django.contrib.auth.urls')),
 ]
